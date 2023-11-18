@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 
-    private GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     [SerializeField] private GameObject MainGameObject;
 
