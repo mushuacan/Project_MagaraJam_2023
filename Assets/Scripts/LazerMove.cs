@@ -30,7 +30,7 @@ public class LazerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             lazerActive = false;
-            ColorChoose(Random.Range(1, 9));//~%22 ana renkler ~%11 ara renkler || Ayrýca seçtiði renge göre hýzýný da ayarlar
+            ColorChoose(Random.Range(1, 10));//~%22 ana renkler ~%11 ara renkler || Ayrýca seçtiði renge göre hýzýný da ayarlar
             SetObjectColor();
             TakePlace();
             lazerActive = true;
