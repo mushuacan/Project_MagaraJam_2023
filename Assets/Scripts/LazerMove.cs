@@ -9,13 +9,14 @@ public class LazerMove : MonoBehaviour
     private bool lazerActive;
     private Tween moveTween;
     [SerializeField] private Ease moveEase;
-    private AllColors lazerColor;
+    private AllColors lazerColor;  
     private int lazerTimer;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -30,18 +31,30 @@ public class LazerMove : MonoBehaviour
         {
             lazerActive = false;
             ColorChoose(Random.Range(1, 9));//~%22 ana renkler ~%11 ara renkler || Ayrýca seçtiði renge göre hýzýný da ayarlar
-            Konumlan();
+            SetObjectColor();
+            TakePlace();
             lazerActive = true;
             moveTween = transform.DOMove(new Vector3(0, 0, 0), lazerTimer, false).SetEase(moveEase); //Harekete geç
         }
     }
-    void Konumlan()
+    void TakePlace()
     {
         transform.position = Vector2.zero;
         derece = Random.Range(0, 360);
         transform.Rotate(0, 0, derece);
         transform.position += transform.right * 12;
     }
+    
+    private void SetObjectColor()
+    {
+        if (ColorManager.Instance != null)
+        {
+
+            spriteRenderer.color = ColorManager.Instance.ReturnColor(lazerColor);
+
+        }
+    }
+
     void ColorChoose(int Chooser)
     {
         if (Chooser == 1 || Chooser == 2) //ana renkler
