@@ -3,29 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.Pool;
+using Unity.VisualScripting;
 
 public class SpawnManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        StartCoroutine(Lazerer());
+        GameManager.OnGameStarted += StartLazers;
     }
-    IEnumerator Lazerer()
+    private void OnDisable()
+    {
+        GameManager.OnGameStarted -= StartLazers;
+    }
+
+    private void StartLazers ()
+    {
+        StartCoroutine(LazerCreate());
+    }
+
+    IEnumerator LazerCreate()
     {
         GameObject lazer = LazerPool.SharedInstance.GetPooledObject();
         if (lazer != null)
         {
             lazer.SetActive(true);
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(LazerCreate());
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(Lazerer());
-        }
-    }
+    
 }

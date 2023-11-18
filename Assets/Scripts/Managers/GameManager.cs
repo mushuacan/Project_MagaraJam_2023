@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     #region Action Variables
 
-
+    public static Action OnGameStarted;
 
     #endregion
 
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
+        OnGameStarted?.Invoke();
     }
 
     #endregion
