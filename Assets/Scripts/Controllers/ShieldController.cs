@@ -231,9 +231,37 @@ public class ShieldController : MonoBehaviour
         RightShieldColor = mainColorKey;
     }
 
+    private void SetFusionShieldColor(AllColors firstColor, AllColors secondColor)
+    {
+        List<AllColors> colorCombinationList = new List<AllColors>();
+
+        colorCombinationList.Add(firstColor);
+        colorCombinationList.Add(secondColor);
+
+        // This means it will be magenta
+        if (colorCombinationList.Contains(AllColors.Red) && colorCombinationList.Contains(AllColors.Blue))
+        {
+            fusionShield.color = ColorManager.Instance.ReturnColor(AllColors.Magenta);
+            FusionShieldColor = AllColors.Magenta;
+        }
+        else if (colorCombinationList.Contains(AllColors.Red) && colorCombinationList.Contains(AllColors.Green))
+        {
+            fusionShield.color = ColorManager.Instance.ReturnColor(AllColors.Yellow);
+            FusionShieldColor = AllColors.Yellow;
+        }
+        else if (colorCombinationList.Contains(AllColors.Blue) && colorCombinationList.Contains(AllColors.Green))
+        {
+            fusionShield.color = ColorManager.Instance.ReturnColor(AllColors.Cyan);
+            FusionShieldColor = AllColors.Cyan;
+        }
+
+    }
+
     public void ActivateFusionShield()
     {
         IsFusionActive = true;
+
+        SetFusionShieldColor(LeftShieldColor, RightShieldColor);
 
         float fusionShieldRotationZ = Mathf.Abs(leftShieldController.transform.eulerAngles.z) + Mathf.Abs(rightShieldController.transform.eulerAngles.z);
 
@@ -265,7 +293,6 @@ public class ShieldController : MonoBehaviour
     public void DeactivateFusionShield()
     {
         IsFusionActive = false;
-
         fusionShieldTween.Kill();
         fusionShieldRotateTween.Kill();
 
