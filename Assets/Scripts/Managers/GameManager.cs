@@ -5,7 +5,11 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 
+    private GameManager Instance;
+
     [SerializeField] private GameObject MainGameObject;
+
+    public bool IsGameOn {get; set;}
 
     #endregion
 
@@ -16,6 +20,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Unity Methods
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+        IsGameOn = false;
+    }
 
     private void Start()
     {
