@@ -21,22 +21,14 @@ public class LazerMove : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        lazerActive = false;
+        ColorChoose(Random.Range(1, 10));//~%22 ana renkler ~%11 ara renkler || Ayrýca seçtiði renge göre hýzýný da ayarlar
+        TakePlace();
+        lazerActive = true;
+        moveTween = transform.DOMove(new Vector3(0, 0, 0), lazerTimer, false).SetEase(moveEase); //Harekete geç
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            lazerActive = false;
-            ColorChoose(Random.Range(1, 10));//~%22 ana renkler ~%11 ara renkler || Ayrýca seçtiði renge göre hýzýný da ayarlar
-            SetObjectColor();
-            TakePlace();
-            lazerActive = true;
-            moveTween = transform.DOMove(new Vector3(0, 0, 0), lazerTimer, false).SetEase(moveEase); //Harekete geç
-        }
-    }
+    
     void TakePlace()
     {
         transform.position = Vector2.zero;
@@ -89,5 +81,8 @@ public class LazerMove : MonoBehaviour
         {
             lazerTimer = 6;
         }
+
+
+        SetObjectColor();
     }
 }

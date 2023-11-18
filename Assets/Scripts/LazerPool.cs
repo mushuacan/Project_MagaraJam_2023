@@ -7,26 +7,29 @@ public class LazerPool : MonoBehaviour
     public static LazerPool SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
+    public Transform lazerPoolTransform;
     public int amountToPool;
 
     private void Awake()
     {
-        SharedInstance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        SharedInstance = this; 
+        
         pooledObjects = new List<GameObject>();
         GameObject tmp;
-        for (int i = 0; i< amountToPool; i++)
+        for (int i = 0; i < amountToPool; i++)
         {
-            tmp = Instantiate(objectToPool);
+            tmp = Instantiate(objectToPool, lazerPoolTransform);
             tmp.SetActive(false);
             pooledObjects.Add(tmp);
         }
     }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-    public GameObject GetPooledOnject()
+    public GameObject GetPooledObject()
     {
         for(int i = 0;i< amountToPool;i++)
         {
