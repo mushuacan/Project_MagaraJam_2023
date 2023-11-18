@@ -22,6 +22,7 @@ public class ShieldController : MonoBehaviour
 
     private Tween leftShieldRotateTween;
     private Tween rightShieldRotateTween;
+    private Tween fusionShieldRotateTween;
     private Tween fusionShieldTween;
 
     public AllColors LeftShieldColor { get; private set; }
@@ -73,6 +74,8 @@ public class ShieldController : MonoBehaviour
         StopRightShieldRotation();
 
         ChangeShieldColor();
+
+        RotateFusionShield();
     }
 
     #endregion
@@ -264,6 +267,7 @@ public class ShieldController : MonoBehaviour
         IsFusionActive = false;
 
         fusionShieldTween.Kill();
+        fusionShieldRotateTween.Kill();
 
         float duration = 0.3f;
 
@@ -271,6 +275,25 @@ public class ShieldController : MonoBehaviour
         {
             fusionShield.gameObject.SetActive(false);
         });
+    }
+
+    private void RotateFusionShield()
+    {
+        if (IsFusionActive)
+        {
+            float fusionShieldRotationZ = Mathf.Abs(leftShieldController.transform.eulerAngles.z) + Mathf.Abs(rightShieldController.transform.eulerAngles.z);
+
+            if (Mathf.Abs(leftShieldController.transform.eulerAngles.z - rightShieldController.transform.eulerAngles.z) > 90)
+            {
+                fusionShieldRotationZ = (fusionShieldRotationZ + 360) / 2;
+            }
+            else
+            {
+                fusionShieldRotationZ = (fusionShieldRotationZ) / 2;
+            }
+
+            fusionShieldRotateTween = fusionShieldController.transform.DORotate(new Vector3(0, 0, fusionShieldRotationZ), 0.1f);
+        }
     }
 
     #endregion
