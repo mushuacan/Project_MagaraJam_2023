@@ -11,7 +11,7 @@ public class LazerMove : MonoBehaviour
     private bool hasCreated = false;
     private Tween moveTween;
     [SerializeField] private Ease moveEase;
-    private AllColors lazerColor;  
+    public AllColors lazerColor;  
     private int lazerTimer;
     private SpriteRenderer spriteRenderer;
 

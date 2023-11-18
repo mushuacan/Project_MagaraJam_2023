@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7942093238860307512}
   - component: {fileID: 2313073187222020257}
+  - component: {fileID: 7545673337669681558}
   - component: {fileID: 5547067118893071859}
   - component: {fileID: 7680686610693063863}
   - component: {fileID: 8731241675410433326}
@@ -87,6 +88,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7545673337669681558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402755899769619496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ecd754a0a236a43b47122423c74143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldType: 0
 --- !u!70 &5547067118893071859
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -356,6 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3500092368927856668}
   - component: {fileID: 6785913273146906743}
+  - component: {fileID: 519107056201523423}
   - component: {fileID: 158290299474289161}
   m_Layer: 0
   m_Name: FusionShield
@@ -431,6 +446,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &519107056201523423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4215354738570353709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ecd754a0a236a43b47122423c74143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldType: 2
 --- !u!70 &158290299474289161
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -489,6 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2014198162715384967}
   - component: {fileID: 9184923702134028446}
+  - component: {fileID: 5486753372662436472}
   - component: {fileID: 1288762351272130844}
   m_Layer: 0
   m_Name: RightShield
@@ -564,6 +593,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5486753372662436472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585370234907943264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ecd754a0a236a43b47122423c74143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldType: 1
 --- !u!70 &1288762351272130844
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
