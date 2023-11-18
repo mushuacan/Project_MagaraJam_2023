@@ -7,15 +7,25 @@ using UnityEngine.Pool;
 public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
-        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(Lazerer());
+    }
+    IEnumerator Lazerer()
+    {
         GameObject lazer = LazerPool.SharedInstance.GetPooledObject();
         if (lazer != null)
         {
             lazer.SetActive(true);
         }
+        yield return new WaitForSeconds(0.2f);
     }
 
-    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(Lazerer());
+        }
+    }
 }
