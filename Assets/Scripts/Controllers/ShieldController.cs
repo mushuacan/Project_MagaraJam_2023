@@ -13,14 +13,20 @@ public class ShieldController : MonoBehaviour
     [SerializeField] private SpriteRenderer leftShield;
     [SerializeField] private GameObject rightShieldController;
     [SerializeField] private SpriteRenderer rightShield;
+    [SerializeField] private GameObject fusionShieldController;
+    [SerializeField] private SpriteRenderer fusionShield;
     [SerializeField] private Ease rotationEase;
     [SerializeField] private float rotateDuration;
 
+    public bool IsFusionActive { get; set; }
+
     private Tween leftShieldRotateTween;
     private Tween rightShieldRotateTween;
+    private Tween fusionShieldTween;
 
     public AllColors LeftShieldColor { get; private set; }
     public AllColors RightShieldColor { get; private set; }
+    public AllColors FusionShieldColor { get; private set; }
 
     #endregion
 
@@ -38,6 +44,18 @@ public class ShieldController : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void OnEnable()
+    {
+        FusionShieldCollisionController.OnShieldsMerge += ActivateFusionShield;
+        FusionShieldCollisionController.OnShieldsBrokeUp += DeactivateFusionShield;
+    }
+
+    private void OnDisable()
+    {
+        FusionShieldCollisionController.OnShieldsMerge -= ActivateFusionShield;
+        FusionShieldCollisionController.OnShieldsBrokeUp -= DeactivateFusionShield;
     }
 
     private void Start()
@@ -69,8 +87,8 @@ public class ShieldController : MonoBehaviour
         {
             if (leftShieldRotateTween == null)
             {
-                Vector3 rotateVector = new Vector3(0, 0, -360);
-                leftShieldRotateTween = leftShieldController.transform.transform.
+                Vector3 rotateVector = new Vector3(0, 0, 360);
+                leftShieldRotateTween = leftShieldController.transform.
                     DOLocalRotate(rotateVector, rotateDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(rotationEase).SetLoops(-1);
             }
         }
@@ -79,8 +97,8 @@ public class ShieldController : MonoBehaviour
         {
             if (leftShieldRotateTween == null)
             {
-                Vector3 rotateVector = new Vector3(0, 0, 360);
-                leftShieldRotateTween = leftShieldController.transform.transform.
+                Vector3 rotateVector = new Vector3(0, 0, -360);
+                leftShieldRotateTween = leftShieldController.transform.
                     DOLocalRotate(rotateVector, rotateDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(rotationEase).SetLoops(-1);
             }
         }
@@ -109,8 +127,8 @@ public class ShieldController : MonoBehaviour
         {
             if (rightShieldRotateTween == null)
             {
-                Vector3 rotateVector = new Vector3(0, 0, -360);
-                rightShieldRotateTween = rightShieldController.transform.transform.
+                Vector3 rotateVector = new Vector3(0, 0, 360);
+                rightShieldRotateTween = rightShieldController.transform.
                     DOLocalRotate(rotateVector, rotateDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(rotationEase).SetLoops(-1);
             }
         }
@@ -119,8 +137,8 @@ public class ShieldController : MonoBehaviour
         {
             if (rightShieldRotateTween == null)
             {
-                Vector3 rotateVector = new Vector3(0, 0, 360);
-                rightShieldRotateTween = rightShieldController.transform.transform.
+                Vector3 rotateVector = new Vector3(0, 0, -360);
+                rightShieldRotateTween = rightShieldController.transform.
                     DOLocalRotate(rotateVector, rotateDuration, RotateMode.FastBeyond360).SetRelative(true).SetEase(rotationEase).SetLoops(-1);
             }
         }
@@ -210,6 +228,50 @@ public class ShieldController : MonoBehaviour
         RightShieldColor = mainColorKey;
     }
 
+    public void ActivateFusionShield()
+    {
+        IsFusionActive = true;
+
+        float fusionShieldRotationZ = Mathf.Abs(leftShieldController.transform.eulerAngles.z) + Mathf.Abs(rightShieldController.transform.eulerAngles.z);
+
+        if (Mathf.Abs(leftShieldController.transform.eulerAngles.z - rightShieldController.transform.eulerAngles.z) > 90)
+        {
+            fusionShieldRotationZ = (fusionShieldRotationZ + 360) / 2;
+        }
+        else
+        {
+            fusionShieldRotationZ = (fusionShieldRotationZ) / 2;
+        }
+
+        fusionShieldController.transform.DORotate(new Vector3(0, 0, fusionShieldRotationZ), 0.001f);
+
+        fusionShield.gameObject.SetActive(true);
+
+        DOVirtual.DelayedCall(0.01f, delegate 
+        {
+            fusionShieldTween.Kill();
+
+            float fullScale = 0.4f;
+            float duration = 0.75f;
+
+            fusionShieldTween = fusionShield.gameObject.transform.DOScaleY(fullScale, duration);
+        });
+        
+    }
+
+    public void DeactivateFusionShield()
+    {
+        IsFusionActive = false;
+
+        fusionShieldTween.Kill();
+
+        float duration = 0.3f;
+
+        fusionShieldTween = fusionShield.gameObject.transform.DOScaleY(0, duration).OnComplete(delegate 
+        {
+            fusionShield.gameObject.SetActive(false);
+        });
+    }
 
     #endregion
 
