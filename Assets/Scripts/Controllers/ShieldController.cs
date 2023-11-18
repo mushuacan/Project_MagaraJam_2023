@@ -19,8 +19,8 @@ public class ShieldController : MonoBehaviour
     private Tween leftShieldRotateTween;
     private Tween rightShieldRotateTween;
 
-    public MainColors LeftShieldColor { get; private set; }
-    public MainColors RightShieldColor { get; private set; }
+    public AllColors LeftShieldColor { get; private set; }
+    public AllColors RightShieldColor { get; private set; }
 
     #endregion
 
@@ -42,8 +42,8 @@ public class ShieldController : MonoBehaviour
 
     private void Start()
     {
-        SetRightShieldsColor(ColorManager.Instance.ReturnColor(AllColors.Red), MainColors.Red);
-        SetLeftShieldsColor(ColorManager.Instance.ReturnColor(AllColors.Blue), MainColors.Blue);
+        SetRightShieldsColorAtStart(ColorManager.Instance.ReturnColor(AllColors.Red), AllColors.Red);
+        SetLeftShieldsColorAtStart(ColorManager.Instance.ReturnColor(AllColors.Blue), AllColors.Blue);
     }
 
     private void Update()
@@ -53,12 +53,15 @@ public class ShieldController : MonoBehaviour
 
         MoveRightShield();
         StopRightShieldRotation();
+
+        ChangeShieldColor();
     }
 
     #endregion
 
     #region Custom Methods
 
+    #region Rotation Methods
     private void MoveLeftShield()
     {
         // This is for shield to move towards left
@@ -138,15 +141,69 @@ public class ShieldController : MonoBehaviour
             rightShieldRotateTween = null;
         }
     }
+    #endregion
+
+    #region Change Color Mechanic
+
+    private void ChangeShieldColor()
+    {
+        // Change the Left shield's color
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SetShieldColor(LeftShieldColor, RightShieldColor, true);
+        }
+        // Change the Right shield's color
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SetShieldColor(LeftShieldColor, RightShieldColor, false);
+        }
+    }
+
+    /// <summary>
+    /// Set the shields color. This function finds available main color and give that color to the target shield.
+    /// </summary>
+    /// <param name="_leftShieldColor">Use global Left Shield Variable that stores left shields Color Key</param>
+    /// <param name="_rightShieldColor">Use global Right Shield Variable that stores right shields Color Key</param>
+    /// <param name="isLeft">Indicate the target shield to change it's color. True for Left Shield, false for Right Shield</param>
+    private void SetShieldColor(AllColors _leftShieldColor, AllColors _rightShieldColor, bool isLeft)
+    {
+        AllColors availableColor;
+
+        List<AllColors> totalColors = new List<AllColors>();
+        totalColors.Add(AllColors.Red);
+        totalColors.Add(AllColors.Green);
+        totalColors.Add(AllColors.Blue);
 
 
-    public void SetLeftShieldsColor(Color color, MainColors mainColorKey)
+        totalColors.Remove(_leftShieldColor);
+        totalColors.Remove(_rightShieldColor);
+
+        availableColor = totalColors[0];
+
+        print("<color=yellow>" + "Available Color is: " + availableColor.ToString() + "</color>");
+
+        if (isLeft)
+        {
+            leftShield.color = ColorManager.Instance.ReturnColor(availableColor);
+            LeftShieldColor = availableColor;
+        }
+        else
+        {
+            rightShield.color = ColorManager.Instance.ReturnColor(availableColor);
+            RightShieldColor = availableColor;
+        }
+        
+    }
+
+    #endregion
+
+    public void SetLeftShieldsColorAtStart(Color color, AllColors mainColorKey)
     {
         leftShield.color = color;
 
         LeftShieldColor = mainColorKey;
     }
-    public void SetRightShieldsColor(Color color, MainColors mainColorKey)
+    public void SetRightShieldsColorAtStart(Color color, AllColors mainColorKey)
     {
         rightShield.color = color;
 

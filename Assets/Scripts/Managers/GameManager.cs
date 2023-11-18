@@ -48,13 +48,6 @@ public class GameManager : MonoBehaviour
 
 #region Enums
 
-public enum MainColors 
-{ 
-    Red = 0,
-    Green = 1, 
-    Blue = 2,
-}
-
 public enum AllColors 
 {
     Red = 0,
