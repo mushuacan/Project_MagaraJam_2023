@@ -33,11 +33,29 @@ public class LazerMove : MonoBehaviour
         {
             hasCreated = true;
         }
+
+
+        GameManager.OnGameOver += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        moveTween.Kill();
     }
 
     void Update()
     {
         if (transform.position.x == 0 && transform.position.y == 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void GameOver()
+    {
+        moveTween.Kill();
+
+        if (gameObject.activeInHierarchy)
         {
             gameObject.SetActive(false);
         }

@@ -7,8 +7,13 @@ using Unity.VisualScripting;
 
 public class SpawnManager : MonoBehaviour
 {
+
+    private float laserSpawnTime;
+
     private void OnEnable()
     {
+        laserSpawnTime = 3f;
+
         GameManager.OnGameStarted += StartLazers;
     }
     private void OnDisable()
@@ -28,8 +33,12 @@ public class SpawnManager : MonoBehaviour
         {
             lazer.SetActive(true);
         }
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(LazerCreate());
+        yield return new WaitForSeconds(laserSpawnTime);
+
+        if (GameManager.Instance.IsGameOn)
+        {
+            StartCoroutine(LazerCreate());
+        }
     }
 
     
