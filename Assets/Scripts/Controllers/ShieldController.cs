@@ -7,15 +7,20 @@ public class ShieldController : MonoBehaviour
 {
     #region Variables
 
+    public static ShieldController Instance { get; private set; }
+
     [SerializeField] private GameObject leftShieldController;
-    [SerializeField] private GameObject leftShield;
+    [SerializeField] private SpriteRenderer leftShield;
     [SerializeField] private GameObject rightShieldController;
-    [SerializeField] private GameObject rightShield;
+    [SerializeField] private SpriteRenderer rightShield;
     [SerializeField] private Ease rotationEase;
     [SerializeField] private float rotateDuration;
 
     private Tween leftShieldRotateTween;
     private Tween rightShieldRotateTween;
+
+    public MainColors LeftShieldColor { get; private set; }
+    public MainColors RightShieldColor { get; private set; }
 
     #endregion
 
@@ -27,9 +32,18 @@ public class ShieldController : MonoBehaviour
 
     #region Unity Methods
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
-
+        SetRightShieldsColor(ColorManager.Instance.ReturnColor(AllColors.Red), MainColors.Red);
+        SetLeftShieldsColor(ColorManager.Instance.ReturnColor(AllColors.Blue), MainColors.Blue);
     }
 
     private void Update()
@@ -124,6 +138,21 @@ public class ShieldController : MonoBehaviour
             rightShieldRotateTween = null;
         }
     }
+
+
+    public void SetLeftShieldsColor(Color color, MainColors mainColorKey)
+    {
+        leftShield.color = color;
+
+        LeftShieldColor = mainColorKey;
+    }
+    public void SetRightShieldsColor(Color color, MainColors mainColorKey)
+    {
+        rightShield.color = color;
+
+        RightShieldColor = mainColorKey;
+    }
+
 
     #endregion
 

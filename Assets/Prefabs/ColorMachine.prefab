@@ -201,9 +201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftShieldController: {fileID: 4913735933671397561}
-  leftShield: {fileID: 2402755899769619496}
+  leftShield: {fileID: 2313073187222020257}
   rightShieldController: {fileID: 4139485569521738256}
-  rightShield: {fileID: 5585370234907943264}
+  rightShield: {fileID: 9184923702134028446}
   rotationEase: 1
   rotateDuration: 1.5
 --- !u!1 &4139485569521738256
