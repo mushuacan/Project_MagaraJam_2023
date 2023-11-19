@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Tilemaps;
 using Unity.Mathematics;
 
 public class LazerMove : MonoBehaviour
