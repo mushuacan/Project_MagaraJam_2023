@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
     IEnumerator LazerCreate()
     {
         
-        Debug.Log(Time.time);
+        //Debug.Log(Time.time);
         
         if (Time.time < 10)
         {

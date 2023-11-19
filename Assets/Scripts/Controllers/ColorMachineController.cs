@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ColorMachineController : MonoBehaviour
 {
     #region Variables
 
     [SerializeField] private SpriteRenderer ColorMachineSprite;
+    [SerializeField] private Sprite ColorMachineStartSprite;
     [SerializeField] private Sprite[] ColorMachineHealthSprites;
 
     #endregion
@@ -23,24 +25,33 @@ public class ColorMachineController : MonoBehaviour
     private void OnEnable()
     {
         OnMachineGetsHit += DecreaseHealth;
+        GameManager.OnGameStarted += GameStart;
     }
 
     private void OnDisable()
     {
         OnMachineGetsHit -= DecreaseHealth;
+        GameManager.OnGameStarted -= GameStart;
     }
 
     #endregion
 
     #region Custom Methods
 
+    private void GameStart()
+    {
+        ColorMachineSprite.sprite = ColorMachineStartSprite;
+    }
+
     private void DecreaseHealth()
     {
         // 0th Sprite will be broken machine sprite. Other ones are the health of machines
         // This line below will Activated when the other parts of machine states Images has come.
 
-        //ColorMachineSprite.sprite = ColorMachineHealthSprites[GameManager.Instance.PlayerHealth];
-
+        DOVirtual.DelayedCall(0.05f, delegate 
+        {
+            ColorMachineSprite.sprite = ColorMachineHealthSprites[GameManager.Instance.PlayerHealth];
+        });
         // Play Get Hit Particle.
 
     }

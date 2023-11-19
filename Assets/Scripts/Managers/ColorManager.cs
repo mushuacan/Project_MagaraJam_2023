@@ -44,7 +44,7 @@ public class ColorManager : MonoBehaviour
             }
         }
 
-        print("<color=orange>" + $"Color Set: {color.ToString()}" + "</color>");
+        //print("<color=orange>" + $"Color Set: {color.ToString()}" + "</color>");
 
         return targetColor;
     }

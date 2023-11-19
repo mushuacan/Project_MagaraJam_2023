@@ -80,13 +80,10 @@ public class GameManager : MonoBehaviour
         {
             // Play Explosion Particle or Anim
             OnGameOver?.Invoke();
-
-            print("<color=red>" + "Game Over" + "</color>");
         }
         else
         {
             // Play Machine Get Hit Particle or Anim
-            print("<color=yellow>" + "Machine Gets Hit" + "</color>");
         }
     }
 
