@@ -49,6 +49,9 @@ public class ScoreManager : MonoBehaviour
 
     private void ScorePanelActivate()
     {
+        GameManager.Instance.Score = 0;
+        scoreText.text = GameManager.Instance.Score.ToString();
+
         float openDuration = 0.25f;
         scorePanel.transform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), openDuration).OnComplete(delegate 
         {
