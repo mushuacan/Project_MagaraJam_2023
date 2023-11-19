@@ -45,12 +45,14 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        OnGameStarted += StartGame;
         ColorMachineController.OnMachineGetsHit += MachineGetsHit;
         OnGameOver += GameOver;
     }
 
     private void OnDisable()
     {
+        OnGameStarted -= StartGame;
         ColorMachineController.OnMachineGetsHit -= MachineGetsHit;
         OnGameOver -= GameOver;
     }
@@ -66,6 +68,13 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Custom Methods
+
+    private void StartGame()
+    {
+        PlayerHealth = playerHealth;
+        Score = 0;
+        IsGameOn = true;
+    }
 
     private void GameOver()
     {
