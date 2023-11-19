@@ -87,6 +87,16 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public void CalculateHighScore(int GameEndScore)
+    {
+        GameManager.Instance.HighScore = PlayerPrefs.GetInt("HighScore");
+
+        if (GameEndScore > GameManager.Instance.HighScore)
+        {
+            PlayerPrefs.SetInt("HighScore", GameEndScore);
+        }
+    }
+
     #endregion
 
 }

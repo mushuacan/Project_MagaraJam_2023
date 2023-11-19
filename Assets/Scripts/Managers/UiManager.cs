@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Image gameOverPanel;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI gameOverScoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private Button retryButton;
     [SerializeField] private Button quitButton;
 
@@ -36,9 +37,12 @@ public class UiManager : MonoBehaviour
 
     private void ActivateGameOver()
     {
+        ScoreManager.Instance.CalculateHighScore(GameManager.Instance.Score);
+
         gameOverObject.gameObject.SetActive(true);
 
         gameOverScoreText.text = "Score: " + GameManager.Instance.Score.ToString();
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore");
 
         float panelActivationTime = 0.3f;
         float gameOverObjectsDuration = 0.5f;
@@ -54,6 +58,7 @@ public class UiManager : MonoBehaviour
                 DOVirtual.DelayedCall(0.25f, delegate
                 {
                     gameOverScoreText.transform.DOScale(Vector3.one, gameOverObjectsDuration);
+                    highScoreText.transform.DOScale(Vector3.one, gameOverObjectsDuration);
                 });
                 DOVirtual.DelayedCall(0.5f, delegate
                 {

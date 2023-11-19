@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public int PlayerHealth {get; private set;}
     public bool IsFusionActive { get; set; }
     public int Score { get; set; }
+    public int HighScore { get; set; }
 
     #endregion
 
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
         IsGameOn = false;
         PlayerHealth = playerHealth;
         Score = 0;
+
+        if (!PlayerPrefs.HasKey("HighScore"))
+        {
+            HighScore = 0;
+            PlayerPrefs.SetInt("HighScore", HighScore);
+        }
     }
 
     private void OnEnable()
