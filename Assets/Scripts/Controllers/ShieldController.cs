@@ -50,6 +50,7 @@ public class ShieldController : MonoBehaviour
     private void OnEnable()
     {
         GameManager.OnGameStarted += RotateColorMachine;
+        GameManager.OnGameStarted += StartGame;
         GameManager.OnGameOver += GameOver;
         FusionShieldCollisionController.OnShieldsMerge += ActivateFusionShield;
         FusionShieldCollisionController.OnShieldsBrokeUp += DeactivateFusionShield;
@@ -57,6 +58,7 @@ public class ShieldController : MonoBehaviour
 
     private void OnDisable()
     {
+        GameManager.OnGameStarted -= StartGame;
         GameManager.OnGameStarted -= RotateColorMachine;
         GameManager.OnGameOver -= GameOver;
         FusionShieldCollisionController.OnShieldsMerge -= ActivateFusionShield;
@@ -351,6 +353,17 @@ public class ShieldController : MonoBehaviour
         fusionShieldRotateTween.Kill();
         leftShieldRotateTween.Kill();
         rightShieldRotateTween.Kill();
+
+        SetRightShieldsColorAtStart(ColorManager.Instance.ReturnColor(AllColors.Red), AllColors.Red);
+        SetLeftShieldsColorAtStart(ColorManager.Instance.ReturnColor(AllColors.Blue), AllColors.Blue);
+
+        leftShieldController.transform.DORotate(new Vector3(0, 0, 90), 0.01f);
+        rightShieldController.transform.DORotate(new Vector3(0, 0, -90), 0.01f);
+    }
+
+    private void StartGame()
+    {
+        
     }
 
     #endregion
