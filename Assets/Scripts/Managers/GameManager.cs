@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameOn {get; set;}
     public int PlayerHealth {get; private set;}
+    public bool IsFusionActive { get; set; }
 
     #endregion
 

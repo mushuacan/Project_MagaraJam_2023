@@ -57,7 +57,7 @@ public class LazerMove : MonoBehaviour
     {
         moveTween.Kill();
 
-        if (gameObject.activeInHierarchy)
+        if (this != null && this.isActiveAndEnabled)
         {
             gameObject.SetActive(false);
         }

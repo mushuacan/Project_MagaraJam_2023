@@ -18,8 +18,6 @@ public class ShieldController : MonoBehaviour
     [SerializeField] private Ease rotationEase;
     [SerializeField] private float rotateDuration;
 
-    public bool IsFusionActive { get; set; }
-
     private Tween leftShieldRotateTween;
     private Tween rightShieldRotateTween;
     private Tween fusionShieldRotateTween;
@@ -203,17 +201,24 @@ public class ShieldController : MonoBehaviour
 
         print("<color=yellow>" + "Available Color is: " + availableColor.ToString() + "</color>");
 
-        if (isLeft)
+
+        if (GameManager.Instance.IsFusionActive)
         {
-            leftShield.color = ColorManager.Instance.ReturnColor(availableColor);
-            LeftShieldColor = availableColor;
+            // Pop You Can Not Change The Color of the shield While Fusion Shield is Active
         }
         else
         {
-            rightShield.color = ColorManager.Instance.ReturnColor(availableColor);
-            RightShieldColor = availableColor;
+            if (isLeft)
+            {
+                leftShield.color = ColorManager.Instance.ReturnColor(availableColor);
+                LeftShieldColor = availableColor;
+            }
+            else
+            {
+                rightShield.color = ColorManager.Instance.ReturnColor(availableColor);
+                RightShieldColor = availableColor;
+            }
         }
-        
     }
 
     #endregion
@@ -259,7 +264,7 @@ public class ShieldController : MonoBehaviour
 
     public void ActivateFusionShield()
     {
-        IsFusionActive = true;
+        GameManager.Instance.IsFusionActive = true;
 
         SetFusionShieldColor(LeftShieldColor, RightShieldColor);
 
@@ -292,7 +297,7 @@ public class ShieldController : MonoBehaviour
 
     public void DeactivateFusionShield()
     {
-        IsFusionActive = false;
+        GameManager.Instance.IsFusionActive = false;
         fusionShieldTween.Kill();
         fusionShieldRotateTween.Kill();
 
@@ -306,7 +311,7 @@ public class ShieldController : MonoBehaviour
 
     private void RotateFusionShield()
     {
-        if (IsFusionActive)
+        if (GameManager.Instance.IsFusionActive)
         {
             float fusionShieldRotationZ = Mathf.Abs(leftShieldController.transform.eulerAngles.z) + Mathf.Abs(rightShieldController.transform.eulerAngles.z);
 

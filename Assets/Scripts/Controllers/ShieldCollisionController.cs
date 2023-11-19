@@ -61,12 +61,6 @@ public class ShieldCollisionController : MonoBehaviour
                 OnShieldUsed?.Invoke();
                 collision.gameObject.SetActive(false);
             }
-            else
-            {
-                ColorMachineController.OnMachineGetsHit?.Invoke();
-
-                collision.gameObject.SetActive(false);
-            }
             
         }
     }
