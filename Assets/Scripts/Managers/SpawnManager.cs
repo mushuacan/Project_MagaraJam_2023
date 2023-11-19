@@ -9,6 +9,8 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; private set; }
     private float laserSpawnTime;
+    private float TimeInGame;
+    private float TimeGameStarted;
     [HideInInspector]
     public string lazerType;
 
@@ -33,6 +35,7 @@ public class SpawnManager : MonoBehaviour
 
     private void StartLazers ()
     {
+        TimeGameStarted = Time.time;
         StartCoroutine(LazerCreate());
     }
 
@@ -49,28 +52,28 @@ public class SpawnManager : MonoBehaviour
     {
         
         //Debug.Log(Time.time);
-        
-        if (Time.time < 10)
+        TimeInGame = Time.time - TimeGameStarted;
+        if (TimeInGame < 10)
         {
             lazerType = "Ana";
             laserSpawnTime = 4;
             LazerSetActive();
 
         }
-        else if (Time.time < 20)
+        else if (TimeInGame < 20)
         {
             lazerType = "Ana";
             laserSpawnTime = 3;
             LazerSetActive();
         }
-        else if (Time.time < 40)
+        else if (TimeInGame < 40)
         {
             lazerType = "2Ana";
             laserSpawnTime = 4;
             LazerSetActive();
             LazerSetActive();
         }
-        else if (Time.time < 60)
+        else if (TimeInGame < 60)
         {
             lazerType = "Ara";
             laserSpawnTime = 4;
