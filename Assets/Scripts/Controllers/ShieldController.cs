@@ -15,6 +15,7 @@ public class ShieldController : MonoBehaviour
     [SerializeField] private SpriteRenderer rightShield;
     [SerializeField] private GameObject fusionShieldController;
     [SerializeField] private SpriteRenderer fusionShield;
+    [SerializeField] private GameObject colorMachineGo;
     [SerializeField] private Ease rotationEase;
     [SerializeField] private float rotateDuration;
 
@@ -22,6 +23,7 @@ public class ShieldController : MonoBehaviour
     private Tween rightShieldRotateTween;
     private Tween fusionShieldRotateTween;
     private Tween fusionShieldTween;
+    private Tween colorMachineTween;
 
     public AllColors LeftShieldColor { get; private set; }
     public AllColors RightShieldColor { get; private set; }
@@ -47,12 +49,16 @@ public class ShieldController : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager.OnGameStarted += RotateColorMachine;
+        GameManager.OnGameOver += GameOver;
         FusionShieldCollisionController.OnShieldsMerge += ActivateFusionShield;
         FusionShieldCollisionController.OnShieldsBrokeUp += DeactivateFusionShield;
     }
 
     private void OnDisable()
     {
+        GameManager.OnGameStarted -= RotateColorMachine;
+        GameManager.OnGameOver -= GameOver;
         FusionShieldCollisionController.OnShieldsMerge -= ActivateFusionShield;
         FusionShieldCollisionController.OnShieldsBrokeUp -= DeactivateFusionShield;
     }
@@ -226,6 +232,13 @@ public class ShieldController : MonoBehaviour
 
     #endregion
 
+    private void RotateColorMachine()
+    {
+        Vector3 rotateVector = new Vector3(0, 0, 360);
+        colorMachineTween = colorMachineGo.transform.
+                    DOLocalRotate(rotateVector, rotateDuration * 10, RotateMode.FastBeyond360).SetRelative(true).SetEase(rotationEase).SetLoops(-1);
+    }
+
     public void SetLeftShieldsColorAtStart(Color color, AllColors mainColorKey)
     {
         leftShield.color = color;
@@ -290,7 +303,7 @@ public class ShieldController : MonoBehaviour
         {
             fusionShieldTween.Kill();
 
-            float fullScale = 0.4f;
+            float fullScale = 1f;
             float duration = 0.75f;
 
             fusionShieldTween = fusionShield.gameObject.transform.DOScaleY(fullScale, duration);
@@ -329,6 +342,15 @@ public class ShieldController : MonoBehaviour
 
             fusionShieldRotateTween = fusionShieldController.transform.DORotate(new Vector3(0, 0, fusionShieldRotationZ), 0.1f);
         }
+    }
+
+    private void GameOver()
+    {
+        colorMachineTween.Kill();
+        fusionShieldTween.Kill();
+        fusionShieldRotateTween.Kill();
+        leftShieldRotateTween.Kill();
+        rightShieldRotateTween.Kill();
     }
 
     #endregion
