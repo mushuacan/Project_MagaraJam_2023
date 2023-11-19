@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameOn {get; set;}
     public int PlayerHealth {get; private set;}
     public bool IsFusionActive { get; set; }
+    public int Score { get; set; }
 
     #endregion
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
 
         IsGameOn = false;
         PlayerHealth = playerHealth;
+        Score = 0;
     }
 
     private void OnEnable()
