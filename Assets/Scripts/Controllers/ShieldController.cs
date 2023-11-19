@@ -65,15 +65,18 @@ public class ShieldController : MonoBehaviour
 
     private void Update()
     {
-        MoveLeftShield();
-        StopLeftShieldRotation();
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOn)
+        {
+            MoveLeftShield();
+            StopLeftShieldRotation();
 
-        MoveRightShield();
-        StopRightShieldRotation();
+            MoveRightShield();
+            StopRightShieldRotation();
 
-        ChangeShieldColor();
+            ChangeShieldColor();
 
-        RotateFusionShield();
+            RotateFusionShield();
+        }
     }
 
     #endregion

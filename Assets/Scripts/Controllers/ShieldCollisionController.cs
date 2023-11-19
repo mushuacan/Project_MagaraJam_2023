@@ -57,9 +57,17 @@ public class ShieldCollisionController : MonoBehaviour
 
             if (lazerObject.lazerColor == colorType)
             {
-                print("<color=green>" + "Shield Protected the Machine!" + "</color>");
                 OnShieldUsed?.Invoke();
                 collision.gameObject.SetActive(false);
+
+                if (shieldType == ShieldType.FusionShield)
+                {
+                    GameManager.OnScoreGained?.Invoke(GameManager.Instance.FusionColorScorePoint);
+                }
+                else
+                {
+                    GameManager.OnScoreGained?.Invoke(GameManager.Instance.MainColorScorePoint);
+                }
             }
             
         }

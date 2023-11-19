@@ -13,6 +13,9 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] private Image scorePanel;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private float scoreIncreaseSpeed;
+
+    private int currentScore;
 
     #endregion
 
@@ -30,12 +33,14 @@ public class ScoreManager : MonoBehaviour
     {
         GameManager.OnGameStarted += ScorePanelActivate;
         GameManager.OnGameOver += ScorePanelDeactivate;
+        GameManager.OnScoreGained += IncreaseScore;
     }
 
     private void OnDisable()
     {
         GameManager.OnGameStarted -= ScorePanelActivate;
         GameManager.OnGameOver -= ScorePanelDeactivate;
+        GameManager.OnScoreGained -= IncreaseScore;
     }
 
     #endregion
@@ -53,8 +58,29 @@ public class ScoreManager : MonoBehaviour
 
     private void ScorePanelDeactivate()
     {
-        float closeDuration = .5f;
-        scorePanel.transform.DOScale(Vector3.zero, closeDuration);
+        float closeDuration = .25f;
+
+        scorePanel.transform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), closeDuration / 2).OnComplete(delegate 
+        {
+            scorePanel.transform.DOScale(Vector3.zero, closeDuration);
+        });
+        
+    }
+
+    private void IncreaseScore(int scoreToAdd)
+    {
+        GameManager.Instance.Score += scoreToAdd;
+        StartCoroutine(IncreaseScoreAnimation(GameManager.Instance.Score));
+    }
+
+    private IEnumerator IncreaseScoreAnimation(int targetScore)
+    {
+        while (currentScore < targetScore)
+        {
+            currentScore++;
+            scoreText.text = currentScore.ToString();
+            yield return new WaitForSeconds(scoreIncreaseSpeed);
+        }
     }
 
     #endregion

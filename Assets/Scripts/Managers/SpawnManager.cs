@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; private set; }
     private float laserSpawnTime;
+    [HideInInspector]
     public string lazerType;
 
     private void Awake()

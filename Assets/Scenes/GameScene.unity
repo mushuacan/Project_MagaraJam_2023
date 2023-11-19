@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorePanel: {fileID: 834587224}
   scoreText: {fileID: 1146739074}
+  scoreIncreaseSpeed: 1e-16
 --- !u!4 &92195464
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1034,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainGameObject: {fileID: 831242722}
   playerHealth: 5
+  MainColorScorePoint: 50
+  FusionColorScorePoint: 150
 --- !u!4 &1983535723
 Transform:
   m_ObjectHideFlags: 0

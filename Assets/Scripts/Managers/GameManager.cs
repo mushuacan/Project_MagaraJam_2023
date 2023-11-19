@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject MainGameObject;
     [SerializeField] private int playerHealth;
+    
+    public int MainColorScorePoint;
+    public int FusionColorScorePoint;
 
     public bool IsGameOn {get; set;}
     public int PlayerHealth {get; private set;}
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public static Action OnGameStarted;
     public static Action OnGameOver;
+    public static Action<int> OnScoreGained;
 
     #endregion
 
