@@ -38,6 +38,8 @@ public class UiManager : MonoBehaviour
     {
         gameOverObject.gameObject.SetActive(true);
 
+        gameOverScoreText.text = "Score: " + GameManager.Instance.Score.ToString();
+
         float panelActivationTime = 0.3f;
         float gameOverObjectsDuration = 0.5f;
 
@@ -51,7 +53,6 @@ public class UiManager : MonoBehaviour
                 });
                 DOVirtual.DelayedCall(0.25f, delegate
                 {
-                    gameOverScoreText.text = "Score: " + GameManager.Instance.Score.ToString();
                     gameOverScoreText.transform.DOScale(Vector3.one, gameOverObjectsDuration);
                 });
                 DOVirtual.DelayedCall(0.5f, delegate
