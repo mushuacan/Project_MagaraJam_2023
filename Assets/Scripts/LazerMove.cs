@@ -133,15 +133,15 @@ public class LazerMove : MonoBehaviour
         }
         if (Time.time < 100) //Hýz ayarý
         {
-            lazerTimer = 6; 
+            lazerTimer = 5; 
         }
         else if (Chooser < 7)
         {
-            lazerTimer = 6; //ana renkler
+            lazerTimer = 5; //ana renkler
         }
         else if (Chooser < 10)
         {
-            lazerTimer = 7; //ara renkler
+            lazerTimer = 6; //ara renkler
         }
     }
 }

@@ -57,23 +57,23 @@ public class SpawnManager : MonoBehaviour
             LazerSetActive();
 
         }
-        else if (Time.time < 60)
+        else if (Time.time < 20)
         {
             lazerType = "Ana";
             laserSpawnTime = 3;
             LazerSetActive();
         }
-        else if (Time.time < 90)
+        else if (Time.time < 40)
         {
             lazerType = "2Ana";
             laserSpawnTime = 4;
             LazerSetActive();
             LazerSetActive();
         }
-        else if (Time.time < 100)
+        else if (Time.time < 60)
         {
             lazerType = "Ara";
-            laserSpawnTime = 5;
+            laserSpawnTime = 4;
             LazerSetActive();
         }
         else
