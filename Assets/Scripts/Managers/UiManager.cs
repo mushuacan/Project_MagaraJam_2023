@@ -16,6 +16,11 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private Button retryButton;
     [SerializeField] private Button quitButton;
+    
+    [SerializeField] private Image StartPanel;
+    [SerializeField] private TextMeshProUGUI tapToContinue;
+
+    Tween tapTween;
 
     #endregion
 
@@ -34,6 +39,32 @@ public class UiManager : MonoBehaviour
     #endregion
 
     #region Custom Methods
+
+    private void Start()
+    {
+        TapToContinueAnim();
+    }
+
+    private void TapToContinueAnim()
+    {
+        tapTween = tapToContinue.transform.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 0.25f).OnComplete(delegate
+        {
+            tapTween = tapToContinue.transform.DOScale(Vector3.one, 0.25f).OnComplete(delegate
+            {
+                TapToContinueAnim();
+            });
+        });
+    }
+
+    public void StartTheGameBeginning()
+    {
+        tapTween.Kill();
+        StartPanel.transform.DOScale(Vector3.zero, 0.5f).OnComplete(delegate 
+        {
+            GameManager.OnGameStarted?.Invoke();
+            GameManager.Instance.IsGameOn = true;
+        });
+    }
 
     private void ActivateGameOver()
     {

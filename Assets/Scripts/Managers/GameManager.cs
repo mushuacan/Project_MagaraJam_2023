@@ -64,14 +64,6 @@ public class GameManager : MonoBehaviour
         OnGameOver -= GameOver;
     }
 
-    private void Start()
-    {
-        // Just for now. There will be first tutorials and touch to start screen. These line of codes will execute when player closes them
-        OnGameStarted?.Invoke();
-        IsGameOn = true;
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
-
     #endregion
 
     #region Custom Methods
