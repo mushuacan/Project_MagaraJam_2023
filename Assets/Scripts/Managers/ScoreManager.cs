@@ -49,6 +49,7 @@ public class ScoreManager : MonoBehaviour
 
     private void ScorePanelActivate()
     {
+        currentScore = 0;
         GameManager.Instance.Score = 0;
         scoreText.text = GameManager.Instance.Score.ToString();
 
